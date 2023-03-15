@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>XML AJAX Example</title>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+</head>
+
+<body>
+  <button id="get-products">Get Products</button>
+  <div id="product-list"></div>
+  
+    
+  </body>
+
+  <script>
+    $(document).ready(function () {
+      $('#get-products').click(function () {
+        $.ajax({
+          url: 'ajax1.php',
+          dataType: 'xml',
+          success: function (data) {
+            var productList = '<ul>';
+            $(data).find('product').each(function () {
+              var productName = $(this).find('ProductName').text();
+              var price = $(this).find('Price').text();
+              productList += '<li>' + productName + ': ' + price + '</li>';
+            });
+            productList += '</ul>';
+            $('#product-list').html(productList);
+          },
+        })
+      })
+    })
+    </script>
+
+</html>
+  
