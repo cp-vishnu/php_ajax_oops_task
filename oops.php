@@ -1,49 +1,76 @@
 <?php
 interface Calculate{
- public function area($r);
- public function volume($r);
+ public function calculatePerimeter();
+ public function calculateVolume();
 
 }
 
-abstract class Circle implements Calculate{
-  public $r;
+abstract class Area implements Calculate{
+  public $dimensions;
   const PI =3.1416;
-  abstract public function surfaceArea($r);
-  public function area($r){
-  $this->r=$r;
-  $x =self::PI*$this->r**2;
-  return $x;
-  
-  }
+  abstract public function calculateSurfaceArea();
+  public function __construct($dimensions) {
+        $this->dimensions = $dimensions;
+    }
   
 }
 
 
-class Sphere extends Circle{
- public $r;
- public $rd;
+class Sphere extends Area{
  const PI =3.1416;
- public function volume($r){
-  $this->r =$r;
-  $x =(4/3)*self::PI*$this->r**3;
+ public function calculateVolume(){
+ 
+  $x =(4/3)*self::PI*$this->dimensions**3;
   return $x;
  }
- public function surfaceArea($rd){
-  $this->rd =$rd;
-  $y =4*self::PI*$this->rd**2;
+ public function calculateSurfaceArea(){
+ 
+  $y =4*self::PI*$this->dimensions**2;
    return $y;
  }
+ public function calculatePerimeter() {
+   $z =2*self::PI*$this->dimensions;
+    return $z;
+    }
 }
+
+class cube extends Area{
+ 
+ public function calculateVolume(){
+ 
+  $x =$this->dimensions**3;
+  return $x;
+ }
+ public function calculateSurfaceArea(){
+  
+  $y =6*$this->dimensions**2;
+   return $y;
+ }
+ public function calculatePerimeter() {
+   $z =12*$this->dimensions;
+    return $z;
+    }
+}
+
+// class square extends 
 
 // $circle1 = new Circle();
 // echo $circle1->area(4);
 echo'<br>';
-$spher1 =new Sphere();
-echo 'Volume of sphere = '.$spher1->volume(3);
+$spher1 =new Sphere(3);
+echo 'Volume of sphere = '.$spher1->calculateVolume();
 echo'<br>';
-echo 'Surface area of sphere = '.$spher1->surfaceArea(5);
+echo 'Surface area of sphere = '.$spher1->calculateSurfaceArea();
 echo'<br>';
-echo 'Area of circle = '.$spher1->area(5);
+echo ' Perimeter of sphere = '.$spher1->calculatePerimeter();
+
+echo'<br>';
+$cube1 =new cube(4);
+echo 'Volume of cube = '.$cube1->calculateVolume();
+echo'<br>';
+echo 'Surface area of cube = '.$cube1->calculateSurfaceArea();
+echo'<br>';
+echo ' Perimeter of cube  = '.$cube1->calculatePerimeter();
 
 
 ?>
